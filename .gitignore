@@ -1,0 +1,12 @@
+node_modules/
+work/
+runs/
+external/
+*.tgz
+dist/testing/
+*.tsbuildinfo
+.env
+__pycache__/
+.DS_Store
+.env.*
+scripts/extract-upstream.py

@@ -1,0 +1,419 @@
+{
+  "upstream_commit": "36dc85d9dc2219d292fa180f347479738a84acb2",
+  "resource_origin": "Project-authored descriptions and prompts; tool vocabulary informed by Meta-Team.",
+  "schemas": {
+    "list_pool": {
+      "name": "list_pool",
+      "description": "列出候选角色、模型、工具与已启动状态。",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "start_agent": {
+      "name": "start_agent",
+      "description": "chairman 启动一个候选成员；随后发送任务消息。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "stop_agent": {
+      "name": "stop_agent",
+      "description": "chairman 停止指定成员，不删除其已保存的能力。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "set_final_output": {
+      "name": "set_final_output",
+      "description": "固定模式下记录最终交付物，随后调用 terminate。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "output"
+        ]
+      }
+    },
+    "terminate": {
+      "name": "terminate",
+      "description": "固定模式下提交结果后结束任务。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    "finalize_task": {
+      "name": "finalize_task",
+      "description": "演化模式下提交真实结果，等待外部反馈后进入反思。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "output"
+        ]
+      }
+    },
+    "update_prompt_patch": {
+      "name": "update_prompt_patch",
+      "description": "L1：查看、追加或替换自己的行为补丁；避免记录题目答案。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "view",
+              "add",
+              "replace_all"
+            ]
+          },
+          "patch": {
+            "type": "string"
+          },
+          "patches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    "update_skill": {
+      "name": "update_skill",
+      "description": "L1：保存自己的可复用 skill。完成后调用 skip_l1_reflection。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "skill_name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "skill_name",
+          "content"
+        ]
+      }
+    },
+    "skip_l1_reflection": {
+      "name": "skip_l1_reflection",
+      "description": "结束本成员的 L1，无论是否有修改；全部成员结束后推进阶段。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "update_teammate_profile": {
+      "name": "update_teammate_profile",
+      "description": "L2：记录伙伴的可观察能力与配合方式，profile 为 YAML 文本。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "teammate_name": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "teammate_name",
+          "profile"
+        ]
+      }
+    },
+    "update_correlation": {
+      "name": "update_correlation",
+      "description": "L2：替换与伙伴的协作记录，保留仍有效的旧经验。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "partner_name": {
+            "type": "string"
+          },
+          "suggestion": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "partner_name",
+          "suggestion"
+        ]
+      }
+    },
+    "skip_l2_reflection": {
+      "name": "skip_l2_reflection",
+      "description": "结束本成员 L2，等待其他成员完成。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "propose_reflection": {
+      "name": "propose_reflection",
+      "description": "L3：提交完整团队文件的新内容。新成员需 config.yaml 与 prompt.md；删除用 config.yaml 的 __REMOVE__。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "target_file": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_file",
+          "content",
+          "reason"
+        ]
+      }
+    },
+    "view_reflection": {
+      "name": "view_reflection",
+      "description": "查看暂存的团队修改和成员建议。",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "view_current_config": {
+      "name": "view_current_config",
+      "description": "查看允许修改的团队规则或成员配置。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "target_file": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_file"
+        ]
+      }
+    },
+    "suggest_team_improvement": {
+      "name": "suggest_team_improvement",
+      "description": "L3：向 chairman 提供有执行证据的分工、流程或团队规则建议。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "agent_name": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "expertise": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "description",
+          "evidence"
+        ]
+      }
+    },
+    "apply_reflection": {
+      "name": "apply_reflection",
+      "description": "chairman 用 confirmation=apply 采用 L3 修改，提交新快照。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "confirmation"
+        ]
+      }
+    },
+    "skip_reflection": {
+      "name": "skip_reflection",
+      "description": "chairman 不修改团队结构，结束 L3 并保存已产生的 L1/L2 更新。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "skip_l3_reflection": {
+      "name": "skip_l3_reflection",
+      "description": "普通成员完成 L3 建议；chairman 可决定最终结构更新。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "send_message": {
+      "name": "send_message",
+      "description": "向当前团队的其他活跃成员发送内容。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "to",
+          "content"
+        ]
+      }
+    },
+    "read_messages": {
+      "name": "read_messages",
+      "description": "读取发给自己的消息；默认只读未读内容，并标记为已读。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sender": {
+            "type": "string"
+          },
+          "unread_only": {
+            "type": "boolean"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          }
+        },
+        "required": []
+      }
+    },
+    "wait_for_replies": {
+      "name": "wait_for_replies",
+      "description": "在短暂、有取消支持的等待内检查回复，之后用 read_messages 读取。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "from_agents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "check_agent_status": {
+      "name": "check_agent_status",
+      "description": "查看当前任务中的成员和阶段状态。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent_name": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  "prompts": {
+    "overview": "按 L1 成员、L2 交互、L3 团队三个阶段复盘。基于真实执行证据，不伪造测试或评分。保存能帮助未来任务的规则，而非当前题目答案。",
+    "l1_agent": "现在是 L1。结合自己的执行和外部结果，识别可改进的观察、验证、工具使用和输出行为。可向相关伙伴询问证据。用 update_prompt_patch 或 update_skill 保存本地经验，完成后调用 skip_l1_reflection；无需修改也要声明完成。",
+    "l1_forced": "执行未正常完成。先区分中止原因与可证实的行为问题；不要把缺少证据当成错误根因。若仍有有效经验，可保存本地修改，否则明确跳过。",
+    "l2_communication": "现在是 L2。只复盘实际发生的消息交接，确认自己的输出怎样被伙伴使用。必要时向伙伴核对，记录长期有效的伙伴画像或成对协作说明。用 update_teammate_profile、update_correlation 保存，完成后调用 skip_l2_reflection。",
+    "l3_suggest": "现在是 L3。根据本次执行和前两阶段发现，提出有证据的角色、分工或共享规则建议。用 suggest_team_improvement 提交；无需更多建议时 skip_l3_reflection。不要直接编辑其他成员的文件。",
+    "l3_structure": "现在是 L3。chairman 查看成员建议，判断团队规则、角色或组织是否需要变化。先 view_current_config，再用 propose_reflection 暂存完整文件。新角色需要配置和角色指令配套；不能删除当前 chairman。需采用时 apply_reflection，无需结构更新时 skip_reflection。普通成员提交建议并完成本阶段。"
+  }
+}

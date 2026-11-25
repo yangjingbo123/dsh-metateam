@@ -1,0 +1,20 @@
+# Replace all paths and provider/model with values for your machine.
+- id: meta-team-research
+  disabled: false
+  config:
+    poolDir: /absolute/path/to/your/pool
+    stateDir: /absolute/path/to/your/state
+    workspace: /absolute/path/to/your/workspace
+    mode: collaborative
+    provider: your-configured-dsh-provider
+    model: your-provider-model-id
+    executionTimeoutMs: 600000
+    phaseTimeoutMs: 120000
+    maxMessages: 200
+    maxCostUsd: 0
+    # A positive dollar budget requires both price estimates below.
+    inputUsdPerMillion: 0
+    outputUsdPerMillion: 0
+    # Optional experiment control for the Python SDK (Unix only).
+    # controlSocket: /absolute/path/to/short-control.sock
+    # controlToken: replace-with-a-random-private-token

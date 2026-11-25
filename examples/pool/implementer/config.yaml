@@ -1,0 +1,6 @@
+name: implementer
+model: configure-through-plugin-model
+temperature: 0.2
+max_tokens: 32768
+max_steps: 100
+tools: []

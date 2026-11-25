@@ -1,0 +1,7 @@
+# Installed as a DSH bundle. Configure paths before enabling this row.
+# No runtime installation/build scripts or automatic model requests.
+- insert:
+    - id: meta-team-research
+      name: dsh-meta-team
+      disabled: true
+      config: {}
