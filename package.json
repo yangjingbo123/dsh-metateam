@@ -1,6 +1,6 @@
 {
   "name": "dsh-meta-team",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": { "type": "git", "url": "git+https://github.com/yangjingbo123/dsh-metateam.git" },
   "homepage": "https://github.com/yangjingbo123/dsh-metateam#readme",
   "bugs": { "url": "https://github.com/yangjingbo123/dsh-metateam/issues" },
@@ -21,13 +21,13 @@
   "engines": { "node": ">=24.9.0" },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.1.0",
-    "@deepseek-ai/dsh-agent": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-brand": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-commands": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-llm": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-session": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-system-prompt": "0.2.2-rc.4",
-    "@deepseek-ai/dsh-tools": "0.2.2-rc.4"
+    "@deepseek-ai/dsh-agent": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-brand": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-commands": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-session": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-system-prompt": "0.2.2-rc.4 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.4 || 0.2.2-rc.5"
   },
   "dependencies": { "js-yaml": "4.3.2" },
   "devDependencies": {

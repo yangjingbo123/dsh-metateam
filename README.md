@@ -21,15 +21,15 @@ DeepSeek Harness（DSH）的外置多智能体 Harness RSI 实验插件，参考
 
 ## 兼容环境
 
-| 项目 | 当前验证范围 |
+| 项目 | 要求或验证范围 |
 |---|---|
 | Node.js | ≥ 24.9.0 |
-| DSH 包接口 | **0.2.2-rc.4** |
+| DSH 安装版本（插件 `v0.1.1`） | **0.2.2-rc.4** 或 **0.2.2-rc.5** |
 | Cordis | 4.1.0 |
 | 本机控制 socket | macOS / Linux；Windows 暂不支持此入口 |
 | 模型 | 使用 DSH 中已配置的 provider/model，插件不内置密钥 |
 
-DSH 接口仍在快速变化。目前依赖明确锁定版本；安装失败时先检查版本，不要盲目使用版本豁免或关闭兼容检查。已核对的 DSH 源码提交为 `ca33fd6843b205e279c7ccb6cb73a472c78f5760`。
+DSH 的接口仍在变化。`v0.1.1` 将安装声明放宽到上述两个明确版本，不需要设置版本豁免。`rc.4` 已验证协作、反馈和快照继承流程（上游提交 `ca33fd6843b205e279c7ccb6cb73a472c78f5760`）；`rc.5` 的端到端验证尚未完成。
 
 ## 在 DSH 中安装
 
@@ -40,16 +40,16 @@ DSH 接口仍在快速变化。目前依赖明确锁定版本；安装失败时�
 在希望使用插件的 profile 中安装；下面以 `web` 为例：
 
 ```sh
-dsh plugin --profile web add git+https://github.com/yangjingbo123/dsh-metateam.git#v0.1.0
+dsh plugin --profile web add git+https://github.com/yangjingbo123/dsh-metateam.git#v0.1.1
 ```
 
 软件包名称是 **`dsh-meta-team`**，仓库名称是 **`dsh-metateam`**，两者不同。包内包含编译后的入口，无需在安装时运行构建脚本。也可以在 DSH 的插件管理页面中输入同一个 Git 地址。
 
 安装成功后，bundle 中的 `meta-team-research` 行仍默认禁用。这是正常行为，避免未配置路径时启动失败。
 
-### 方法二：安装 GitHub Release 中的压缩包
+### 备用方式：安装旧版 Release 压缩包（只支持 DSH `rc.4`）
 
-如果 Git 下载不稳定，可以使用仓库 Release 中的 `dsh-meta-team-0.1.0.tgz` 下载地址：
+如果使用 DSH `rc.4` 且 Git 下载不稳定，可以用旧的 `dsh-meta-team-0.1.0.tgz`。**DSH `rc.5` 请使用上面的 `v0.1.1` Git 地址**；旧压缩包仍会被拒绝。
 
 ```sh
 dsh plugin --profile web add https://github.com/yangjingbo123/dsh-metateam/releases/download/v0.1.0/dsh-meta-team-0.1.0.tgz
