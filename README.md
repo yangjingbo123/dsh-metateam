@@ -57,6 +57,14 @@ dsh plugin --profile web add https://github.com/yangjingbo123/dsh-metateam/relea
 
 发布压缩包不包含上游仓库、模型凭据、临时运行目录或测试模型。
 
+## 在另一台 Mac 上从头演示
+
+1. 在演示电脑安装 DSH CLI 和上面的插件 `v0.1.1`，并在 DSH 登录模型账号。启动器默认使用 `deepseek-account` / `deepseek-flash`。
+2. 从 GitHub 下载这个仓库的完整 ZIP（**Code → Download ZIP**），解压后进入 `examples/demo`，双击 `start-macos.command`。如果 Finder 没有直接打开它，可以在解压后的仓库根目录运行 `/bin/zsh examples/demo/start-macos.command`。
+3. 浏览器打开后，按 [《演示指令》](examples/demo/演示指令.md) 逐条复制。首次 `/meta status` 应显示 `head: v000000`。两轮之间只新建聊天，不重启。
+
+脚本用演示电脑自己的 `dsh` 和示例成员池，不依赖作者电脑的路径，也不包含账号、聊天记录或已学习的快照。每次启动分配一个新目录，不覆盖之前的运行。如果使用不同的模型，在终端用 `METATEAM_PROVIDER=你的提供方 METATEAM_MODEL=你的模型 /bin/zsh examples/demo/start-macos.command` 启动。
+
 ## 配置与启用
 
 ### 1. 准备自己的成员池
